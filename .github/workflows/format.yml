@@ -1,0 +1,32 @@
+name: Format Python Code
+
+on: [push]
+
+jobs:
+  format:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: '3.x'
+
+    - name: Install black
+      run: pip install black
+
+    - name: Format Python code
+      run: black . --check --diff
+
+    - name: Commit changes
+      if: steps.format.outcome == 'failure'
+      run: |
+        git config --local user.name "github-actions"
+        git config --local user.email "github-actions@github.com"
+        black .
+        git add .
+        git commit -m "Formatted Python code using black"
+        git push
