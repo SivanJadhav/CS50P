@@ -7,7 +7,7 @@ def main():
 
 
 def is_valid(s):
-    """ Validates Plate Name """
+    """Validates Plate Name"""
 
     # Must Contain At Least 2 Characters and 6 at Max. All of them should be letters and numbers
     if not (2 <= len(s) <= 6) or not s.isalnum():
@@ -22,7 +22,7 @@ def is_valid(s):
     for char in s:
         if char.isdigit():
             if not number_started:
-                if char == '0':
+                if char == "0":
                     return False
                 number_started = True
         elif number_started:
